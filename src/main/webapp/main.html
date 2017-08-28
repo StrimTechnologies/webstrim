@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>   
+    <head>
+        <link rel="SHORTCUT ICON" HREF="images/favicon.ico">
+        <script src="js/checksession.js"></script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>alpha.strim.me</title>  
+        <link rel="stylesheet" href="css/reset.min.css">
+        <link rel='stylesheet prefetch' href='css/googleapi.css'>
+        <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+        <link rel="stylesheet" media="only screen and (max-width: 800px)" href="css/style.css" />
+        <link rel="stylesheet" media="only screen and (min-width: 801px)" href="css/styleD.css" />
+
+    </head>
+
+    <body>
+
+        <script src="js/RTCMultiConnection.min.js"></script>      
+        <script src="js/socket.io.js"></script>
+
+        <div id="msg"  class="loader" style="font-size:largest;"></div>
+        <div id="help" class="help"></div>
+        <div id="container"  class="container" style="display:none;">
+            <div class="card" id="maxtop">        
+                <table class="container">
+                    <tr class="level1" id="level1">
+                        <td>
+                            <a href="main.html" style="color: #595959;"><img src="images/logo_trench_font_white.png" class="strimlogo">&nbsp;&nbsp;alpha v0.46</a><br><br>
+                            <h1 class="title" id="usernametag">Username</h1>
+                            <h1 id="devicetag" class="device">Wallet Address</h1> 
+                            <h1 id="accountBalance" class="device" style="display:none;">Balance:</h1>   
+                            <h1 id="txStatus" class="device" style="display:none;">[ No transaction to display ]</h1>  
+                            <h1 id="maplocation" class="device">GPS Address</h1>            
+                        </td>
+                    </tr>
+                    <tr class="level2">
+                        <td>  
+                            <div class="tab">
+                                <script src="js/tabs.js"></script>
+                                <button class="tablinks" onclick="openTabs(event, 'DisplayMap')" id="defaultOpen" title="Live Strim Map" alt="Live Strim Map"><img src="images/icons/icons8-Location-80.png" width="30" height="30"></button>
+                                <button class="tablinks" onclick="openTabs(event, 'Live')" title="Advanced Strim Search" alt="Advanced Strim Search"><img src="images/icons/icons8-Search-100(1).png" width="30" height="30"></button>
+                                <button class="tablinks" id="liveCamera" title="Create Strim" alt="Create Strim"><img src="images/icons/icons8-Start-100.png" width="30" height="30"></button>
+                                <button class="tablinks" onclick="openTabs(event, 'Settings')" title="Settings" alt="Settings"><img src="images/icons/icons8-Settings-100.png" width="30" height="30"></button>
+                                <button class="tablinks" onclick="openTabs(event, 'Logout')" id="exit" title="Logout" alt="Logout"><img src="images/icons/icons8-Exit-100.png" width="28" height="28"></button>
+                                <button class="tablinks" onclick="openTabs(event, 'StrimDetailsTab')" id="StrimDetailsPage" style="display:none;"></button> 
+                            </div>
+                            <div id="search" class="search">
+                                <br>
+                                <center>    
+                                    <button class="btn" onclick='javascript:document.getElementById("liveCamera").click();'><span>Create p2p Strim</span></button>&nbsp;&nbsp;&nbsp;<button class="btn" onclick="searchTable()"><span>Refresh List</span></button><br> <p id="refreshlist" style="padding:3px;color: red;display:none;">Refreshing list...</p></center>
+                                <br>
+                                <input id="filterTable-input" data-type="search" placeholder="Search for anything ..." onkeyup="searchTable()" style="font-size:16px;width:99%;" onclick="this.setSelectionRange(0, this.value.length)"><br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="level3">
+                        <td>
+                            <div id="DisplayMap" class="tabcontent">               
+                                <div class="pac-card" id="pac-card">             
+                                    <img id="strim" src="images/logo_trench_font_white.png" class="strimlogo">   
+                                    <div id="usertagmap" class="usertagmap"><h1 class="title" id="usernametag2"></h1></div>               
+                                    <input id="pac-input" type="text" placeholder="Search for a location/place/address" onclick="">
+                                    <center><p id="refreshmap" style="padding:3px;color: red;font-size:16pt;display:none;">Refreshing map...</p></center>                                
+                                </div>          
+                                <div id="map" class="map"></div>       
+                                <div id="infowindow-content">
+                                    <img src="" width="16" height="16" id="place-icon">
+                                    <span id="place-name"  class="title_maps"></span><br>
+                                    <span id="place-address"></span>
+                                </div>            
+                            </div>
+
+                            <div id="Live" class="tabcontent"> 
+                                <div id="top" style="display:none;">
+                                    <center>
+                                        <a href="#maxtop" id="top" title="Top" alt="Top"><img src="images/icons/icons8-Top Menu-100(2).png" width="60" height="60"></a>
+                                    </center>                                 
+                                </div>
+                                <br>
+                                <table id="liveStrims" style="width:100%;text-align:center;font-size:15px;overflow-y:scroll;">
+                                    <thead><tr><th>Username</th><th>Strim Name</th><th>Strim Location</th><th>Price</th></tr></thead><tbody>           
+                                </table>
+                            </div>  
+
+                            <div id="CreateStrim" class="tabcontent">                    
+                                <form id="startStream" name="startStream" method="post" action="">
+                                    <br>                        
+                                    <div class="input-container">      
+                                        <label id="strimtype" for="strimtype" style="color: #9d9d9d;webkit-transform: translate(-12%, -50%) scale(0.75);transform: translate(-12%, -50%) scale(0.75);">Select Strim type</label><br>
+                                        <select name="strimtype">
+                                            <option value="live" selected>Live</option>
+                                            <option value="scheduled" disabled>Scheduled</option>
+                                            <option value="private" disabled>On Demand</option>  
+                                            <option value="private" disabled>Private</option>  
+                                        </select>        
+                                        <div class="bar"></div>
+                                    </div>
+
+
+                                    <div class="input-container">
+                                        <input type="text" id="strimname" name="strimname" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="username">Strim name</label>
+                                        <div class="bar"></div>
+                                    </div>
+
+                                    <div class="input-container">
+                                        <input type="text" id="strimdetails" name="strimdetails" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="strimdetails">Strim details</label>
+                                        <div class="bar"></div>
+                                    </div>
+
+                                    <div class="input-container">
+                                        <input type="text" id="strimlocation" name="strimlocation" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="strimlocation">Strim location</label>       
+                                        <div class="bar"></div>                                                    
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="text" id="strimprice" name="strimprice" required="required" autocorrect="off" autocapitalize="off" value="0.00" />
+                                        <label for="strimprice">Strim price (STR)</label>       
+                                        <div class="bar"></div>         
+                                    </div>
+
+                                    <!--<div class="button-container">
+                                        <button id="createstrim" type="submit"><span>Create Strim</span></button>
+                                    </div>      -->     
+                                    <center><button id="createstrim" class ="btn" type="submit"><span>Create p2p Strim</span></button></center>                                              
+                                </form>    
+                            </div>
+
+                            <div id="LiveStrim" class="tabcontent">
+                                <br>
+                                <div align="center">
+                                    <button class="btn" id="open-or-join" style="display:none;">Start Strim</button>
+                                    <!-- <button class="btn" id="btn-switch-cameras" >Switch camera</button>&nbsp;&nbsp;&nbsp;  -->                                                                          
+                                    <button class="btn" id="stop" >Stop Strim</button><br>
+                                    <div class="input-container" id="allcameras" style="display:none;">      
+                                        <label id="strimtype" for="strimtype" style="color: #9d9d9d;webkit-transform: translate(-12%, -50%) scale(0.75);transform: translate(-12%, -50%) scale(0.75);">Select camera</label><br>
+                                        <select id="alldevices"></select>       
+                                        <div class="bar"></div>
+                                    </div>
+                                    <button id="ff-switch" style="font-size:17px;display:none;">Switch camera</button>        
+                                </div>
+
+                                <div id="room-urls" style="text-align: center;color:red;display: none;padding:5px;"></div>
+                                <div id="broadcast-viewers-counter" style="text-align: center;padding-bottom:5px"></div>
+                                <div>
+                                    <center>
+                                        <video id="video-preview" class="video-preview" controls loop align="center" autoplay></video>
+                                    </center>
+
+                                    <input type="text" id="input-text-chat" placeholder="Enter Text Chat" style="width:99%;"> <br>press enter/go to send message while connected
+                                    <br><br>
+                                    <p>
+                                        <u>Chatbox:</u>
+                                    </p>
+                                    <div class="chat-output">
+                                        <div id="chat-output">Preview ON (not streaming)</div></div></div>                                     
+                            </div>                                  
+
+                            <div id="Settings" class="tabcontent">
+                                <br>
+                                <form id="updateuserForm" name="updateuserForm" method="POST">	 
+                                    <div class="input-container">
+                                        <input type="text" id="usernameupdate" name="usernameupdate" autocorrect="off" required="required" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="usernameupdate">Username</label>
+                                        <div class="bar"></div>
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="text" id="walletupdate" name="wallet" autocorrect="off" required="required" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="walletupdate">Wallet address</label>
+                                        <div class="bar"></div>
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="password" id="passwordupdate" name="passwordupdate" required="required"  autocorrect="off" autocapitalize="off" value="NotRealPassword" onclick='javascript: this.value = ""'/>
+                                        <label for="passwordupdate">New password</label>
+                                        <div class="bar"></div>
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="password" id="passwordupdate2" name="passwordupdate2" required="required"  autocorrect="off" autocapitalize="off" value="NotRealPassword" onclick='javascript: this.value = ""'/>
+                                        <label for="passwordupdate2">Repeat new password</label>
+                                        <div class="bar"></div>
+                                    </div>
+
+                                    <div class="input-container">
+                                        <input type="password" id="currentpassword" name="currentpassword" required="required" autocorrect="off" autocapitalize="off" onclick='javascript: this.value = ""'/>
+                                        <label for="currentpassword">Current password</label>
+                                        <div class="bar"></div>
+                                    </div>
+
+                                    <center>
+                                        <button id="updateuser" class="btn" type="submit"><span>Save settings</span></button>
+                                    </center>                                    
+                                </form>                            
+                            </div>
+
+                            <div id="StrimDetailsTab" class="tabcontent">                  
+                                <br>
+                                <p id="strimstatusDetailsTab" class="details"></p><br>
+                                <p id="userstreamingDetailsTab" class="details"></p><br>
+                                <p id="strimnameDetailsTab" class="details"></p><br>
+                                <p id="strimdetailsDetailsTab" class="details"></p><br>
+                                <p id="strimlocationDetailsTab" class="details"></p><br>
+                                <p onclick="showOnMap(hosterLat, hosterLong)"  class="details" style="cursor:pointer;"><font color="#ed2553">&nbsp;&nbsp;&nbsp;[</font> Show user on map <font color="#ed2553">]</font></p><br>
+                                <p style="color:#ed2553;" id="strimpriceDetailsTab" class="details"></p><br>                                 
+                                <p id="strimHostWallet" class="details"></p><br> 
+                                <center>
+                                    <button id="connecttostrim" class="btn" onclick="ConnectToStrim()" disabled><span>Open p2p Strim</span></button>                                
+                                </center>   
+                            </div>    
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="card alt">
+                    <div class="toggle" title="Map / Menu" alt="Map / Menu" id="toggle"></div><br>        
+                </div>
+            </div>         
+            <script src="js/jquery-3.2.1.min.js"></script> 
+            <script src="js/config.js"></script>            
+            <script src="js/index.js"></script>
+            <script src="js/sha.js"></script>
+            <script src="js/webservice.js"></script>
+            <script src="js/defiant.min.js"></script>
+            <script src="js/maps.js"></script>
+            <script src="js/rtc.js"></script> 
+            <script src="js/accents.js"></script>  
+            <script src="js/trans.js"></script>  
+            <script src="js/functions.js"></script>            
+
+            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAOWix21V-JTNrsQinfXNCXFnN7yT32nlk&libraries=places&callback=initMap" async defer></script>         
+
+        </div> 
+        <script type="text/javascript">
+                                        $('html, body').scroll(function e() {
+                                            var $anchor = $(".level3");
+                                            var $scroller = $('#top');
+                                            var move = function () {
+                                                var st = $('html, body').scrollTop();
+                                                var ot = $anchor.offset().top;
+                                                if (st > ot) {
+                                                    $('#top').show();
+                                                    $scroller.css({
+                                                        position: "fixed",
+                                                        "left": "50%",
+                                                        "transform": "translate(-50%, 0)",
+                                                        "bottom": "10px",
+                                                        "text-align": "center",
+                                                        "width": "fit-content"
+                                                    });
+                                                } else {
+                                                    $('#top').hide();
+                                                    $scroller.css({
+                                                        position: "relative",
+                                                        top: ""
+                                                    });
+                                                }
+                                            };
+                                            move();
+                                        });
+
+                                        window.close = window.onbeforeunload = window.onunload = function () {
+                                            document.getElementById("stop").click();
+                                        };
+
+                                        $(document).ready(function () {
+                                            $('#container').show();
+                                            $('#msg').hide();
+                                        });
+
+
+        </script>
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-105334019-2', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+    </body>
+</html>

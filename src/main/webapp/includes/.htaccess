@@ -1,0 +1,9 @@
+<Directory "/includes">
+    AllowOverride All
+</Directory>
+
+<Location "/includes">
+   Options +Includes
+AddType text/html shtml
+AddHandler server-parsed shtm
+</Location>

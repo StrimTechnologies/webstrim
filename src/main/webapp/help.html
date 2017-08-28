@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="SHORTCUT ICON" HREF="images/favicon.ico">
+        <meta charset="UTF-8">
+        <meta name="google-signin-client_id" content="548435863015-r0hrkekvhv2r91484qi5s4s5u5uhh9vq.apps.googleusercontent.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>alpha.strim.me</title>
+        <link rel="stylesheet" href="css/reset.min.css">
+        <link rel='stylesheet prefetch' href='css/googleapi.css'>
+        <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+        <link rel="stylesheet" media="only screen and (max-width: 800px)" href="css/style.css" />
+        <link rel="stylesheet" media="only screen and (min-width: 801px)" href="css/styleD.css" />   
+    </head>
+    <body >       
+        <div id="msg"  class="loader" style="font-size:largest;"></div>
+        <div id="container" class="container" style="display:none;">
+            <div class="card">
+                <table class="container">
+                    <tr class="level1_license"><td>
+                            <a href="index.html"><img src="images/logo_trench_font_white.png" class="strimlogo"></a>
+                            <h1 class="title">STR Setup Help</h1>
+                        </td></tr>
+                    <tr class="level2_license">
+                        <td>     
+                            
+                            <div style="font-size:15px;text-align: justify;margin: 0 auto;width: fit-content;padding:5px;">     
+                                <font color="#ed2553">Remarks:</font><br>
+                                ========<br><br>
+                                • To test the STR transactions, Metamask must be installed first (steps mentioned below)<br>
+                                • A webcam is required only if you want to strim video<br>
+                                • The test transaction will only work on desktop browser versions during the alpha<br><br><br>
+
+                                <font color="#ed2553">Setup testnet transactions:</font><br>
+                                ======================<br><br>
+                                1. install Metamask: <br>
+                                <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn" target="_blank"><font color="#ed2553">[</font> Download Metamask for Chrome <font color="#ed2553">]</font></a><br><br>
+                                <a href="https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/" target="_blank"><font color="#ed2553">[</font> Download Metamask for Firefox <font color="#ed2553">]</font></a> <br><br>
+                                2. log into Metamask and create a new wallet <br><br>
+                                3. switch Metamask to use the Rinkeby testnet: <br>
+                                <img src="images/metamask1.jpg" class="strimlogo"><br><br>
+                                4. add Rinkeby ether to your wallet: <a href="https://faucet.rinkeby.io/" target="_blank"><font color="#ed2553">[</font> Rinkeby Ether Faucet <font color="#ed2553">]</font></a><br><br>
+                                5. create a new user on Strim and use the newly created wallet <br><br><br>
+                                <font color="#ed2553">Note:</font><br>
+                                =====<br><br>
+                                • If you have several wallets in Metamask, make sure to select the one configured in the Strim account<br>
+                                • Unlock (log in) Metamask in order to access accounts in Strim
+                                <br><br>                       
+                            </div>
+                            
+                    <center> <button class="btn" onclick="window.location.href = 'main.html'"><span>Continue to Strim</span></button><br><br></center>     
+                    </td></tr></table>
+            </div>
+        </div>
+        <script src="js/jquery-3.2.1.min.js"></script> 
+        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#container').show();
+                            $('#msg').hide();
+                        });
+        </script>
+    </body>
+</html>

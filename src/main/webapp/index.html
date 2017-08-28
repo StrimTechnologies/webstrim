@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="SHORTCUT ICON" HREF="images/favicon.ico">
+        <meta charset="UTF-8">
+        <meta name="google-signin-client_id" content="548435863015-r0hrkekvhv2r91484qi5s4s5u5uhh9vq.apps.googleusercontent.com">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>alpha.strim.me</title>
+        <link rel="stylesheet" href="css/reset.min.css">
+        <link rel='stylesheet prefetch' href='css/googleapi.css'>
+        <link rel='stylesheet prefetch' href='css/font-awesome.min.css'>
+        <link rel="stylesheet" media="only screen and (max-width: 800px)" href="css/style.css" />
+        <link rel="stylesheet" media="only screen and (min-width: 801px)" href="css/styleD.css" />
+        <script>
+            var onReCaptchaLoad = function () {
+                var captchaWidgetId = grecaptcha.render('captcha', {
+                    'sitekey': '6LcJYigUAAAAANN-P4TZ1TUbRdavLVmyFMEm1WYg',
+                    'theme': 'clean',
+                    'callback': 'verifyCallback',
+                    'expired-callback': 'expCallback'
+                });
+            };
+        </script>
+        <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=onReCaptchaLoad"></script>
+    </head>
+
+    <body >  
+        <div id="msg"  class="loader" style="font-size:largest;"></div>
+        <div id="container" class="container" style="display:none;">                   
+            <div class="card">
+
+                <table class="container">
+                    <tr class="level1_login">        <td>                            
+                    <center><br><img src="images/logo_trench_font_white.png" style="width:180px;"><p style="color: #595959;">alpha v0.46</p></center><br><br>
+
+                    </td></tr>
+
+                    <tr class="level2_login"><td>
+                            <h1 class="title">Login</h1>
+
+                            <form class="min_height" id="loginForm" name="loginForm" method="get" action="">
+                                <fieldset>
+                                    <div class="input-container">
+                                        <input type="text" id="username" name="username" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="username">Username</label>
+                                        <div class="bar"></div>
+                                    </div>
+                                    <div class="input-container">
+                                        <input type="password" id="password" name="password" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                                        <label for="password">Password</label>
+                                        <div class="bar"></div>
+                                    </div>   
+                                    <div class="button-container">
+                                        <p id="statuslogin" style="padding:3px;color: red;"></p>
+                                        <button id="go" type="submit"><span>login</span></button>
+                                    </div>
+                                </fieldset>
+                                <div class="footer"><a href="#">Register new user</a></div>
+                            </form> </td></tr><tr><td>
+                            <div id="license" class="rerun" style="display:none;">
+
+                                <center> 
+                                    <section id="checkBox" style="display:none;font-family: 'RobotoDraft', 'Roboto', sans-serif;color: black;font-size: 12pt;" title="enable testnet transactions">
+                                        <!-- .squaredFour -->
+                                        <div class="slideThree">  
+                                            <input type="checkbox" value="None" id="enableTrans" name="enableTrans" />
+                                            <label for="enableTrans"></label>
+                                        </div><div>[ enable str token testnet transactions ]</div><br>
+                                        <div id="helpPage" onclick="location.href = 'help.html';" style="display:none;cursor:pointer;color:#ed2553;font-size:12pt;">> &nbsp;STR Setup Help&nbsp; <</div>                                                                            
+                                        <br><br>
+                                        <!-- end .squaredFour -->      
+                                    </section>
+                                </center>  
+
+                                <br>
+                                <a href="license.html">STRIM License</a>
+
+                            </div>  
+                        </td></tr></table>
+
+
+                <div class="card alt">
+                    <div class="toggle" style="display:none;"></div>
+                    <h1 class="title">Register<div class="close"></div></h1> 
+                    <form id="createuserForm" name="createuserForm" style="padding:5px;overflow:hidden;-moz-overflow: hidden;display:none;">	 
+                        <div class="input-container">
+                            <input type="text" id="usernamecreate" name="usernamecreate" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                            <label for="username">Username</label>
+                            <div class="bar"></div>                            
+                        </div>                            
+                        <div class="input-container">
+                            <input type="text" id="wallet" name="wallet" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                            <label for="wallet">Wallet address</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" id="passwordcreate" name="passwordcreate" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                            <label id = "password" for="password">Password</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" id="passwordcreate2" name="passwordcreate2" required="required" autocorrect="off" autocapitalize="off" onclick="this.setSelectionRange(0, this.value.length)"/>
+                            <label for="password2">Repeat Password</label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container"><div id="captcha" class="g-recaptcha" data-callback=”verifyCallback”></div></div>                              
+                        <div class="button-container">                              
+                            <button id="createuser" type="submit" disabled><span id="creatinguserstatus">Create user</span></button>                            
+                        </div>                                
+                    </form>
+                </div>
+
+            </div>     
+            <script src="js/jquery-3.2.1.min.js"></script> 
+            <script src="js/config.js"></script>        
+            <script src="js/defiant.min.js"></script>
+            <script src="js/webservice.js"></script>            
+            <script src="js/index.js"></script>
+            <script src="js/sha.js"></script>
+            <script src="js/accents.js"></script>  
+
+        </div>
+
+        <script type="text/javascript">
+
+                                testExp = new RegExp('Android|webOS|iPhone|iPad|' +
+                                        'BlackBerry|Windows Phone|' +
+                                        'Opera Mini|IEMobile|Mobile',
+                                        'i');
+
+                                if (testExp.test(navigator.userAgent))
+                                    $('#checkBox').hide();
+                                else
+                                    $('#checkBox').show();
+
+
+                                if (sessionStorage.getItem("enableTransactions") == "true") {
+                                    document.getElementById('enableTrans').checked = true;
+                                    $("#helpPage").show();
+
+                                }
+                                $(document).ready(function () {
+                                    $('#license').show();
+                                    $('#container').show();
+                                    $('#msg').hide();
+                                });
+
+        </script>
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-105334019-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+    </body>
+</html>
